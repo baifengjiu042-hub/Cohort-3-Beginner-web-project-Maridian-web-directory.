@@ -1,1 +1,2 @@
 # Cohort-3-Beginner-web-project-Maridian-web-directory.
+Meridian by Sofia is a full-stack web directory made for the "cohort -3 web development course". It includes all 193 UN member countries and five major international organizations. Users can create an account, log in securely, and search, filter, and open detailed pages showing each entry's capital, government type, memberships, and a key fact. Accounts and country data are stored in CSV files, making it a quick and friendly study tool for politics and international relations students.
