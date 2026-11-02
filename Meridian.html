@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meridian by Sofia | Countries and International Organizations Directory</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- COLORS (change these to change the whole theme) ---------- */
+:root {
+  --bg: #fff7fa;      /* page background */
+  --petal: #fde6ee;      /* soft pink areas */
+  --accent: #f6b3c7;       /* pastel pink for buttons */
+  --accent-dark: #b03f68;  /* headings and links */
+  --ink: #4a2433;        /* main text */
+  --muted: #8f6474;      /* secondary text */
+  --white: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "DM Sans", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; color: var(--accent-dark); line-height: 1.1; }
+
+/* ---------- TOP BAR ---------- */
+header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 6vw; background: var(--white);
+  border-bottom: 1px solid var(--petal);
+}
+.logo { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.6rem; font-weight: 700; color: var(--accent-dark); cursor: pointer; }
+nav { display: flex; gap: 12px; align-items: center; }
+.by { font-family: "DM Sans", Arial, sans-serif; font-size: .95rem; font-weight: 500; color: var(--muted); margin-left: 4px; }
+
+/* ---------- BUTTONS ---------- */
+button { font-family: inherit; font-size: 1rem; cursor: pointer; border-radius: 999px; padding: 10px 24px; border: 2px solid var(--accent); transition: background .2s, color .2s; }
+.btn-main { background: var(--accent); color: var(--ink); font-weight: 500; }
+.btn-main:hover { background: #f09ab4; border-color: #f09ab4; }
+.btn-soft { background: transparent; color: var(--accent-dark); }
+.btn-soft:hover { background: var(--petal); }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--accent-dark); outline-offset: 2px; }
+
+/* ---------- WELCOME (HERO) ---------- */
+.hero {
+  min-height: 78vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 60px 6vw;
+  background: radial-gradient(circle at 50% 0%, var(--petal) 0%, var(--bg) 70%);
+}
+.hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); max-width: 16ch; margin-bottom: 22px; }
+.hero p { max-width: 55ch; font-size: 1.15rem; color: var(--muted); margin-bottom: 34px; }
+.hero .actions { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+/* ---------- ABOUT STRIP ---------- */
+.about { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 60px 6vw; max-width: 1100px; margin: auto; }
+.about div { background: var(--white); border: 1px solid var(--petal); border-radius: 20px; padding: 28px; cursor: pointer; transition: transform .25s, box-shadow .25s; }
+.about h3 { font-size: 1.6rem; margin-bottom: 8px; }
+.about p { color: var(--muted); }
+
+/* ---------- LOGIN / SIGN UP ---------- */
+.auth-wrap { min-height: 78vh; display: flex; align-items: center; justify-content: center; padding: 40px 6vw; background: radial-gradient(circle at 50% 0%, var(--petal) 0%, var(--bg) 70%); }
+.auth-box { background: var(--white); border-radius: 24px; padding: 40px 36px; width: 100%; max-width: 420px; box-shadow: 0 20px 50px rgba(240, 154, 180, .25); }
+.auth-box h2 { font-size: 2.2rem; text-align: center; margin-bottom: 6px; }
+.auth-box .sub { text-align: center; color: var(--muted); margin-bottom: 24px; }
+label { display: block; font-weight: 500; margin: 14px 0 6px; }
+input, select { width: 100%; padding: 12px 16px; border: 1.5px solid var(--petal); border-radius: 12px; font: inherit; background: var(--bg); color: var(--ink); }
+input:focus, select:focus { border-color: var(--accent); }
+.auth-box .btn-main { width: 100%; margin-top: 24px; }
+.switch { text-align: center; margin-top: 18px; color: var(--muted); }
+.switch a { color: var(--accent-dark); font-weight: 700; cursor: pointer; text-decoration: underline; }
+.error { color: #b3261e; background: #fde8e6; border-radius: 10px; padding: 10px 14px; margin-top: 16px; display: none; }
+
+/* ---------- DASHBOARD ---------- */
+.dash { max-width: 1100px; margin: auto; padding: 40px 6vw 80px; }
+.dash-top { background: linear-gradient(135deg, #f9c9d8, #fde6ee); color: var(--ink); border-radius: 24px; padding: 36px; margin-bottom: 32px; }
+.dash-top h2 { color: var(--accent-dark); font-size: 2.4rem; }
+.dash-top p { color: var(--muted); margin-top: 8px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.stat { background: var(--white); border: 1px solid var(--petal); border-radius: 18px; padding: 20px; }
+.stat b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-size: 2.2rem; color: var(--accent-dark); }
+.stat span { color: var(--muted); }
+.tools { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 24px; }
+.tools label { margin: 0 0 6px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.card { background: var(--white); border: 1px solid var(--petal); border-radius: 20px; padding: 24px; cursor: pointer; transition: transform .25s, box-shadow .25s; }
+.card h3 { font-size: 1.7rem; }
+.card .tag { display: inline-block; background: var(--petal); color: var(--accent-dark); border-radius: 999px; padding: 2px 12px; font-size: .85rem; margin: 8px 0 12px; }
+.card dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: .95rem; }
+.card dt { color: var(--muted); }
+.card .fact { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--petal); color: var(--muted); font-size: .95rem; }
+.empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 40px; }
+.card:hover, .card:focus-visible, .about div:hover, .about div:focus-visible { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(240, 154, 180, .3); }
+.card .more { display: block; margin-top: 14px; color: var(--accent-dark); font-weight: 700; }
+
+/* ---------- DETAIL PAGE (opens when a card is clicked) ---------- */
+.detail { max-width: 760px; margin: auto; padding: 40px 6vw 80px; }
+.detail-card { background: var(--white); border: 1px solid var(--petal); border-radius: 24px; padding: 40px; margin: 24px 0; box-shadow: 0 20px 50px rgba(240, 154, 180, .2); }
+.detail-card h2 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+.detail-card .tag { display: inline-block; background: var(--petal); color: var(--accent-dark); border-radius: 999px; padding: 2px 14px; margin: 10px 0 22px; }
+.detail-card dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 22px; }
+.detail-card dt { color: var(--muted); }
+.detail-card .fact { margin-top: 26px; padding: 18px 22px; background: var(--bg); border-radius: 16px; font-size: 1.1rem; }
+.detail-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); }
+@keyframes slideNext { from { opacity: 0; transform: translateX(70px); } to { opacity: 1; transform: none; } }
+@keyframes slidePrev { from { opacity: 0; transform: translateX(-70px); } to { opacity: 1; transform: none; } }
+.slide-next { animation: slideNext .35s ease; }
+.slide-prev { animation: slidePrev .35s ease; }
+
+footer { text-align: center; padding: 26px; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--petal); }
+
+.hidden { display: none !important; }
+
+@media (max-width: 640px) {
+  .tools { grid-template-columns: 1fr; }
+  header { flex-direction: column; gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header>
+  <div class="logo" onclick="goHome()">Meridian <span class="by">by Sofia</span></div>
+  <nav id="nav-out">
+    <button class="btn-soft" onclick="showAuth('login')">Log in</button>
+    <button class="btn-main" onclick="showAuth('signup')">Create account</button>
+  </nav>
+  <nav id="nav-in" class="hidden">
+    <button class="btn-soft" onclick="logout()">Log out</button>
+  </nav>
+</header>
+
+<!-- ================= PAGE 1: WELCOME ================= -->
+<main id="page-home">
+  <section class="hero">
+    <h1>Geography class, but make it cute.</h1>
+    <p>Your brain called. It wants to know who’s in NATO, why Turkey lives on two continents, and what a “permanent member” even means. Meridian has the answers, minus the boring textbook energy. Search a country, read a fun fact, and out-smart your group chat. No pop quiz. Probably.</p>
+    <div class="actions">
+      <button class="btn-main" onclick="showAuth('signup')">Let me in, I’m curious</button>
+      <button class="btn-soft" onclick="showAuth('login')">Back again? Log in</button>
+    </div>
+  </section>
+
+  <section class="about">
+    <div tabindex="0" onclick="goExplore()" onkeydown="if(event.key==='Enter')goExplore()"><h3>Search</h3><p>Type a country or organization and the results show up instantly. No loading, no drama.</p></div>
+    <div tabindex="0" onclick="goExplore()" onkeydown="if(event.key==='Enter')goExplore()"><h3>Filter</h3><p>Pick a region and watch the rest of the planet politely step aside.</p></div>
+    <div tabindex="0" onclick="goExplore()" onkeydown="if(event.key==='Enter')goExplore()"><h3>Learn</h3><p>Every card has the capital, the government, the memberships and one fact for dinner-table flexing.</p></div>
+  </section>
+</main>
+
+<!-- ================= PAGE 2: LOGIN / SIGN UP ================= -->
+<main id="page-auth" class="hidden">
+  <section class="auth-wrap">
+    <div class="auth-box">
+      <h2 id="auth-title">Welcome back, genius</h2>
+      <p class="sub" id="auth-sub">Log in to open your dashboard.</p>
+
+      <div id="name-field" class="hidden">
+        <label for="name">Your name</label>
+        <input id="name" type="text" placeholder="e.g. Ayesha">
+      </div>
+
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com">
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="At least 6 characters">
+
+      <div class="error" id="error" role="alert"></div>
+
+      <button class="btn-main" id="auth-btn" onclick="submitAuth()">Log in</button>
+      <p class="switch" id="auth-switch"></p>
+    </div>
+  </section>
+</main>
+
+<!-- ================= PAGE 3: ACCOUNT DASHBOARD ================= -->
+<main id="page-dash" class="hidden">
+  <div class="dash">
+    <div class="dash-top">
+      <h2 id="dash-hello">Hello!</h2>
+      <p>Welcome to your dashboard. Search below and get ready to be gently insufferable at dinner.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="stat-countries">0</b><span>Countries</span></div>
+      <div class="stat"><b id="stat-orgs">0</b><span>Organizations</span></div>
+      <div class="stat"><b id="stat-regions">0</b><span>Regions</span></div>
+      <div class="stat"><b id="stat-shown">0</b><span>Showing now</span></div>
+    </div>
+
+    <div class="tools">
+      <div>
+        <label for="search">Search</label>
+        <input id="search" type="text" placeholder="Try “Pakistan”, “UN” or “Europe”" oninput="renderCards()">
+      </div>
+      <div>
+        <label for="region">Region</label>
+        <select id="region" onchange="renderCards()"></select>
+      </div>
+    </div>
+
+    <div class="cards" id="cards"></div>
+  </div>
+</main>
+
+<!-- ================= PAGE 4: DETAIL (opens from a card) ================= -->
+<main id="page-detail" class="hidden">
+  <div class="detail">
+    <button class="btn-soft" onclick="backToList()">← Back to directory</button>
+    <article class="detail-card" id="detail-card"></article>
+    <div class="detail-nav">
+      <button class="btn-soft" onclick="stepDetail(-1)">← Previous</button>
+      <span id="detail-count"></span>
+      <button class="btn-main" onclick="stepDetail(1)">Next →</button>
+    </div>
+  </div>
+</main>
+
+<footer>Made by Sofia with love, caffeine and a concerning number of treaties.</footer>
+
+<script>
+/* =====================================================
+   SAMPLE DATA  (frontend only, no backend yet)
+   You can add your own countries by copying a line.
+   ===================================================== */
+const DATA = [
+  { name: "Pakistan", type: "Country", region: "Asia", capital: "Islamabad", gov: "Federal parliamentary republic", member: "UN, SCO, OIC, Commonwealth", fact: "The only country founded in the name of a religion, with a nuclear-armed military." },
+  { name: "India", type: "Country", region: "Asia", capital: "New Delhi", gov: "Federal parliamentary republic", member: "UN, SCO, BRICS, Commonwealth", fact: "The world’s most populous country and largest democracy." },
+  { name: "China", type: "Country", region: "Asia", capital: "Beijing", gov: "One-party socialist republic", member: "UN (P5), SCO, BRICS", fact: "One of the five permanent members of the UN Security Council." },
+  { name: "Japan", type: "Country", region: "Asia", capital: "Tokyo", gov: "Constitutional monarchy", member: "UN, G7, G20", fact: "Its post-war constitution limits the use of military force." },
+  { name: "Turkey", type: "Country", region: "Asia", capital: "Ankara", gov: "Presidential republic", member: "UN, NATO, OIC, G20", fact: "Sits on both Europe and Asia and controls the Bosphorus strait." },
+  { name: "Saudi Arabia", type: "Country", region: "Asia", capital: "Riyadh", gov: "Absolute monarchy", member: "UN, OIC, OPEC, G20", fact: "Home to Islam’s two holiest sites, Mecca and Medina." },
+  { name: "United Kingdom", type: "Country", region: "Europe", capital: "London", gov: "Constitutional monarchy", member: "UN (P5), NATO, G7, Commonwealth", fact: "Left the European Union in 2020 after the Brexit vote." },
+  { name: "France", type: "Country", region: "Europe", capital: "Paris", gov: "Semi-presidential republic", member: "UN (P5), EU, NATO, G7", fact: "A nuclear power and a founding member of the European Union." },
+  { name: "Germany", type: "Country", region: "Europe", capital: "Berlin", gov: "Federal parliamentary republic", member: "UN, EU, NATO, G7", fact: "Europe’s largest economy and a leading voice in the EU." },
+  { name: "Russia", type: "Country", region: "Europe", capital: "Moscow", gov: "Federal semi-presidential republic", member: "UN (P5), SCO, BRICS", fact: "The largest country in the world by land area." },
+  { name: "Egypt", type: "Country", region: "Africa", capital: "Cairo", gov: "Presidential republic", member: "UN, AU, Arab League, OIC", fact: "Controls the Suez Canal, a key route for world trade." },
+  { name: "South Africa", type: "Country", region: "Africa", capital: "Pretoria (executive)", gov: "Parliamentary republic", member: "UN, AU, BRICS, G20", fact: "Ended apartheid in 1994 and has three capital cities." },
+  { name: "Nigeria", type: "Country", region: "Africa", capital: "Abuja", gov: "Federal presidential republic", member: "UN, AU, OPEC, ECOWAS", fact: "Africa’s most populous country." },
+  { name: "Ethiopia", type: "Country", region: "Africa", capital: "Addis Ababa", gov: "Federal parliamentary republic", member: "UN, AU", fact: "Hosts the headquarters of the African Union." },
+  { name: "United States", type: "Country", region: "North America", capital: "Washington, D.C.", gov: "Federal presidential republic", member: "UN (P5), NATO, G7, G20", fact: "Hosts the UN headquarters in New York City." },
+  { name: "Canada", type: "Country", region: "North America", capital: "Ottawa", gov: "Constitutional monarchy", member: "UN, NATO, G7, Commonwealth", fact: "Has the longest coastline of any country." },
+  { name: "Brazil", type: "Country", region: "South America", capital: "Brasília", gov: "Federal presidential republic", member: "UN, BRICS, G20, Mercosur", fact: "The largest country in South America." },
+  { name: "Australia", type: "Country", region: "Oceania", capital: "Canberra", gov: "Constitutional monarchy", member: "UN, G20, Commonwealth", fact: "Part of the AUKUS security partnership with the US and UK." },
+  { name: "United Nations (UN)", type: "Organization", region: "Global", capital: "New York City", gov: "Intergovernmental organization", member: "193 member states", fact: "Founded in 1945 to maintain international peace and security." },
+  { name: "NATO", type: "Organization", region: "Global", capital: "Brussels", gov: "Military alliance", member: "32 member states", fact: "Its Article 5 says an attack on one member is an attack on all." },
+  { name: "European Union (EU)", type: "Organization", region: "Global", capital: "Brussels", gov: "Political and economic union", member: "27 member states", fact: "Members share a single market and many use the euro." },
+  { name: "Shanghai Cooperation Organisation (SCO)", type: "Organization", region: "Global", capital: "Beijing", gov: "Eurasian political and security body", member: "Includes China, Russia, India, Pakistan", fact: "Focuses on regional security and economic cooperation." },
+  { name: "Organisation of Islamic Cooperation (OIC)", type: "Organization", region: "Global", capital: "Jeddah", gov: "Intergovernmental organization", member: "57 member states", fact: "The second-largest intergovernmental body after the UN." }
+];
+
+/* =====================================================
+   ALL OTHER UN MEMBER STATES (short format)
+   Each country is written as:  Name|Capital|Government code
+   The codes are explained in GOV below.
+   ===================================================== */
+const GOV = {
+  Pr: "Presidential republic", Pa: "Parliamentary republic", Sp: "Semi-presidential republic",
+  Cm: "Constitutional monarchy", Am: "Absolute monarchy", Op: "One-party state",
+  Th: "Theocratic government", Mi: "Military-led government", Tr: "Transitional or disputed government"
+};
+
+const NATO = "Albania,Belgium,Bulgaria,Croatia,Czechia,Denmark,Estonia,Finland,Greece,Hungary,Iceland,Italy,Latvia,Lithuania,Luxembourg,Montenegro,Netherlands,North Macedonia,Norway,Poland,Portugal,Romania,Slovakia,Slovenia,Spain,Sweden".split(",");
+const EU = "Austria,Belgium,Bulgaria,Croatia,Cyprus,Czechia,Denmark,Estonia,Finland,Greece,Hungary,Ireland,Italy,Latvia,Lithuania,Luxembourg,Malta,Netherlands,Poland,Portugal,Romania,Slovakia,Slovenia,Spain,Sweden".split(",");
+
+const MORE = {
+  "Asia": "Afghanistan|Kabul|Th;Armenia|Yerevan|Pa;Azerbaijan|Baku|Pr;Bahrain|Manama|Cm;Bangladesh|Dhaka|Pa;Bhutan|Thimphu|Cm;Brunei|Bandar Seri Begawan|Am;Cambodia|Phnom Penh|Cm;Cyprus|Nicosia|Pr;Georgia|Tbilisi|Pa;Indonesia|Jakarta|Pr;Iran|Tehran|Th;Iraq|Baghdad|Pa;Israel|Jerusalem|Pa;Jordan|Amman|Cm;Kazakhstan|Astana|Pr;Kuwait|Kuwait City|Cm;Kyrgyzstan|Bishkek|Pr;Laos|Vientiane|Op;Lebanon|Beirut|Pa;Malaysia|Kuala Lumpur|Cm;Maldives|Malé|Pr;Mongolia|Ulaanbaatar|Sp;Myanmar|Naypyidaw|Mi;Nepal|Kathmandu|Pa;North Korea|Pyongyang|Op;Oman|Muscat|Am;Philippines|Manila|Pr;Qatar|Doha|Am;Singapore|Singapore|Pa;South Korea|Seoul|Pr;Sri Lanka|Sri Jayawardenepura Kotte|Sp;Syria|Damascus|Tr;Tajikistan|Dushanbe|Pr;Thailand|Bangkok|Cm;Timor-Leste|Dili|Sp;Turkmenistan|Ashgabat|Pr;United Arab Emirates|Abu Dhabi|Am;Uzbekistan|Tashkent|Pr;Vietnam|Hanoi|Op;Yemen|Sana'a|Tr",
+  "Europe": "Albania|Tirana|Pa;Andorra|Andorra la Vella|Cm;Austria|Vienna|Pa;Belarus|Minsk|Pr;Belgium|Brussels|Cm;Bosnia and Herzegovina|Sarajevo|Pa;Bulgaria|Sofia|Pa;Croatia|Zagreb|Pa;Czechia|Prague|Pa;Denmark|Copenhagen|Cm;Estonia|Tallinn|Pa;Finland|Helsinki|Pa;Greece|Athens|Pa;Hungary|Budapest|Pa;Iceland|Reykjavik|Pa;Ireland|Dublin|Pa;Italy|Rome|Pa;Latvia|Riga|Pa;Liechtenstein|Vaduz|Cm;Lithuania|Vilnius|Sp;Luxembourg|Luxembourg City|Cm;Malta|Valletta|Pa;Moldova|Chisinau|Pa;Monaco|Monaco|Cm;Montenegro|Podgorica|Pa;Netherlands|Amsterdam|Cm;North Macedonia|Skopje|Pa;Norway|Oslo|Cm;Poland|Warsaw|Pa;Portugal|Lisbon|Sp;Romania|Bucharest|Sp;San Marino|San Marino|Pa;Serbia|Belgrade|Pa;Slovakia|Bratislava|Pa;Slovenia|Ljubljana|Pa;Spain|Madrid|Cm;Sweden|Stockholm|Cm;Switzerland|Bern|Pa;Ukraine|Kyiv|Sp",
+  "Africa": "Algeria|Algiers|Sp;Angola|Luanda|Pr;Benin|Porto-Novo|Pr;Botswana|Gaborone|Pa;Burkina Faso|Ouagadougou|Mi;Burundi|Gitega|Pr;Cabo Verde|Praia|Sp;Cameroon|Yaoundé|Pr;Central African Republic|Bangui|Pr;Chad|N'Djamena|Pr;Comoros|Moroni|Pr;Republic of the Congo|Brazzaville|Pr;Democratic Republic of the Congo|Kinshasa|Sp;Côte d'Ivoire|Yamoussoukro|Pr;Djibouti|Djibouti|Pr;Equatorial Guinea|Malabo|Pr;Eritrea|Asmara|Op;Eswatini|Mbabane|Am;Gabon|Libreville|Pr;Gambia|Banjul|Pr;Ghana|Accra|Pr;Guinea|Conakry|Tr;Guinea-Bissau|Bissau|Tr;Kenya|Nairobi|Pr;Lesotho|Maseru|Cm;Liberia|Monrovia|Pr;Libya|Tripoli|Tr;Madagascar|Antananarivo|Tr;Malawi|Lilongwe|Pr;Mali|Bamako|Mi;Mauritania|Nouakchott|Pr;Mauritius|Port Louis|Pa;Morocco|Rabat|Cm;Mozambique|Maputo|Pr;Namibia|Windhoek|Pr;Niger|Niamey|Mi;Rwanda|Kigali|Pr;São Tomé and Príncipe|São Tomé|Sp;Senegal|Dakar|Pr;Seychelles|Victoria|Pr;Sierra Leone|Freetown|Pr;Somalia|Mogadishu|Pa;South Sudan|Juba|Tr;Sudan|Khartoum|Mi;Tanzania|Dodoma|Pr;Togo|Lomé|Pa;Tunisia|Tunis|Pr;Uganda|Kampala|Pr;Zambia|Lusaka|Pr;Zimbabwe|Harare|Pr",
+  "North America": "Antigua and Barbuda|St. John's|Cm;Bahamas|Nassau|Cm;Barbados|Bridgetown|Pa;Belize|Belmopan|Cm;Costa Rica|San José|Pr;Cuba|Havana|Op;Dominica|Roseau|Pa;Dominican Republic|Santo Domingo|Pr;El Salvador|San Salvador|Pr;Grenada|St. George's|Cm;Guatemala|Guatemala City|Pr;Haiti|Port-au-Prince|Tr;Honduras|Tegucigalpa|Pr;Jamaica|Kingston|Cm;Mexico|Mexico City|Pr;Nicaragua|Managua|Pr;Panama|Panama City|Pr;Saint Kitts and Nevis|Basseterre|Cm;Saint Lucia|Castries|Cm;Saint Vincent and the Grenadines|Kingstown|Cm;Trinidad and Tobago|Port of Spain|Pa",
+  "South America": "Argentina|Buenos Aires|Pr;Bolivia|Sucre|Pr;Chile|Santiago|Pr;Colombia|Bogotá|Pr;Ecuador|Quito|Pr;Guyana|Georgetown|Pr;Paraguay|Asunción|Pr;Peru|Lima|Pr;Suriname|Paramaribo|Pr;Uruguay|Montevideo|Pr;Venezuela|Caracas|Pr",
+  "Oceania": "Fiji|Suva|Pa;Kiribati|Tarawa|Pr;Marshall Islands|Majuro|Pr;Micronesia|Palikir|Pr;Nauru|Yaren|Pr;New Zealand|Wellington|Cm;Palau|Ngerulmud|Pr;Papua New Guinea|Port Moresby|Cm;Samoa|Apia|Pa;Solomon Islands|Honiara|Cm;Tonga|Nuku'alofa|Cm;Tuvalu|Funafuti|Cm;Vanuatu|Port Vila|Pa"
+};
+
+// Turn the short lines above into full cards and add them to DATA
+for (const region in MORE) {
+  MORE[region].split(";").forEach(line => {
+    const [name, capital, code] = line.split("|");
+    const member = ["UN"];
+    if (NATO.includes(name)) member.push("NATO");
+    if (EU.includes(name)) member.push("EU");
+    if (region === "Africa") member.push("AU");
+    DATA.push({
+      name, type: "Country", region, capital, gov: GOV[code], member: member.join(", "),
+      fact: `One of the UN’s 193 member states, located in ${region}.`
+    });
+  });
+}
+
+// Countries first (A to Z), then organizations (A to Z)
+DATA.sort((a, b) => a.type === b.type ? a.name.localeCompare(b.name) : (a.type === "Country" ? -1 : 1));
+
+/* =====================================================
+   PAGE SWITCHING  (shows one page, hides the others)
+   ===================================================== */
+const pages = ["page-home", "page-auth", "page-dash", "page-detail"];
+let currentResults = [];   // the cards currently shown on the dashboard
+let detailIndex = 0;       // which card is open on the detail page
+function showPage(id) {
+  pages.forEach(p => document.getElementById(p).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  if (getUser()) { openDashboard(); } else { showPage("page-home"); }
+}
+
+/* =====================================================
+   LOGIN / SIGN UP  (demo only: saved in your browser)
+   ===================================================== */
+let mode = "login";
+
+function showAuth(newMode) {
+  mode = newMode;
+  const isSignup = mode === "signup";
+  document.getElementById("auth-title").textContent = isSignup ? "Join the cool nerds" : "Welcome back, genius";
+  document.getElementById("auth-sub").textContent = isSignup ? "Takes less time than choosing a username." : "Log in to open your dashboard.";
+  document.getElementById("auth-btn").textContent = isSignup ? "Create account" : "Log in";
+  document.getElementById("name-field").classList.toggle("hidden", !isSignup);
+  document.getElementById("auth-switch").innerHTML = isSignup
+    ? 'Already have an account? <a onclick="showAuth(\'login\')">Log in</a>'
+    : 'New here? <a onclick="showAuth(\'signup\')">Create an account</a>';
+  document.getElementById("error").style.display = "none";
+  showPage("page-auth");
+}
+
+function showError(message) {
+  const box = document.getElementById("error");
+  box.textContent = message;
+  box.style.display = "block";
+}
+
+function getUser() {
+  try { return JSON.parse(localStorage.getItem("currentUser")); } catch (e) { return null; }
+}
+function getAccounts() {
+  try { return JSON.parse(localStorage.getItem("accounts")) || []; } catch (e) { return []; }
+}
+
+function submitAuth() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim().toLowerCase();
+  const password = document.getElementById("password").value;
+
+  if (!email.includes("@")) { return showError("Enter a valid email address, like you@example.com."); }
+  if (password.length < 6) { return showError("Your password needs at least 6 characters."); }
+
+  const accounts = getAccounts();
+
+  if (mode === "signup") {
+    if (!name) { return showError("Enter your name so we can greet you."); }
+    if (accounts.some(a => a.email === email)) { return showError("This email already has an account. Try logging in."); }
+    accounts.push({ name, email, password });
+    try { localStorage.setItem("accounts", JSON.stringify(accounts)); } catch (e) {}
+    startSession({ name, email });
+  } else {
+    const found = accounts.find(a => a.email === email && a.password === password);
+    if (!found) { return showError("Email or password is incorrect. Check them or create an account."); }
+    startSession({ name: found.name, email: found.email });
+  }
+}
+
+function startSession(user) {
+  try { localStorage.setItem("currentUser", JSON.stringify(user)); } catch (e) {}
+  sessionUser = user;
+  openDashboard();
+}
+
+let sessionUser = getUser();
+
+function logout() {
+  try { localStorage.removeItem("currentUser"); } catch (e) {}
+  sessionUser = null;
+  document.getElementById("nav-in").classList.add("hidden");
+  document.getElementById("nav-out").classList.remove("hidden");
+  showPage("page-home");
+}
+
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
+function openDashboard() {
+  const user = sessionUser || getUser();
+  document.getElementById("dash-hello").textContent = "Hello, " + user.name + ".";
+  document.getElementById("nav-out").classList.add("hidden");
+  document.getElementById("nav-in").classList.remove("hidden");
+
+  // Fill the region drop-down once
+  const regions = [...new Set(DATA.map(d => d.region))].sort();
+  const select = document.getElementById("region");
+  select.innerHTML = '<option value="all">All regions</option>' + regions.map(r => `<option>${r}</option>`).join("");
+
+  // Fill the numbers at the top
+  document.getElementById("stat-countries").textContent = DATA.filter(d => d.type === "Country").length;
+  document.getElementById("stat-orgs").textContent = DATA.filter(d => d.type === "Organization").length;
+  document.getElementById("stat-regions").textContent = regions.length;
+
+  renderCards();
+  showPage("page-dash");
+}
+
+function renderCards() {
+  const text = document.getElementById("search").value.trim().toLowerCase();
+  const region = document.getElementById("region").value;
+
+  const results = DATA.filter(d => {
+    const matchesText = (d.name + " " + d.region + " " + d.capital + " " + d.member + " " + d.type).toLowerCase().includes(text);
+    const matchesRegion = region === "all" || d.region === region;
+    return matchesText && matchesRegion;
+  });
+
+  document.getElementById("stat-shown").textContent = results.length;
+  currentResults = results;
+
+  document.getElementById("cards").innerHTML = results.length
+    ? results.map((d, i) => `
+        <article class="card" tabindex="0" role="button" onclick="openDetail(${i})" onkeydown="if(event.key==='Enter')openDetail(${i})">
+          <h3>${d.name}</h3>
+          <span class="tag">${d.type} · ${d.region}</span>
+          <dl>
+            <dt>Capital</dt><dd>${d.capital}</dd>
+            <dt>Government</dt><dd>${d.gov}</dd>
+            <dt>Members</dt><dd>${d.member}</dd>
+          </dl>
+          <p class="fact">${d.fact}</p>
+          <span class="more">Open →</span>
+        </article>`).join("")
+    : '<p class="empty">No results found. Try a different name or set the region to All regions.</p>';
+}
+
+/* =====================================================
+   CARD NAVIGATION  (click a card to open its page,
+   then slide to the next or previous one)
+   ===================================================== */
+function openDetail(i) {
+  detailIndex = i;
+  renderDetail("next");
+  showPage("page-detail");
+}
+
+function renderDetail(direction) {
+  const d = currentResults[detailIndex];
+  const card = document.getElementById("detail-card");
+  card.innerHTML = `
+    <h2>${d.name}</h2>
+    <span class="tag">${d.type} · ${d.region}</span>
+    <dl>
+      <dt>Capital</dt><dd>${d.capital}</dd>
+      <dt>Government</dt><dd>${d.gov}</dd>
+      <dt>Members</dt><dd>${d.member}</dd>
+    </dl>
+    <p class="fact">${d.fact}</p>`;
+  // restart the slide animation every time
+  card.classList.remove("slide-next", "slide-prev");
+  void card.offsetWidth;
+  card.classList.add(direction === "prev" ? "slide-prev" : "slide-next");
+  document.getElementById("detail-count").textContent = (detailIndex + 1) + " of " + currentResults.length;
+}
+
+function stepDetail(step) {
+  const total = currentResults.length;
+  detailIndex = (detailIndex + step + total) % total;
+  renderDetail(step > 0 ? "next" : "prev");
+}
+
+function backToList() { showPage("page-dash"); }
+
+// the three small cards on the welcome page
+function goExplore() {
+  if (sessionUser) { openDashboard(); } else { showAuth("signup"); }
+}
+
+// left and right arrow keys also move between cards
+document.addEventListener("keydown", function (e) {
+  if (document.getElementById("page-detail").classList.contains("hidden")) return;
+  if (e.key === "ArrowRight") stepDetail(1);
+  if (e.key === "ArrowLeft") stepDetail(-1);
+});
+
+/* If someone is already logged in, go straight to the dashboard */
+if (sessionUser) { openDashboard(); }
+</script>
+<script src="app.js"></script>
+</body>
+</html>
